@@ -1,0 +1,18 @@
+{
+  "bicycle": {
+    "name": "Lynskey Cooper CX",
+    "size": "L",
+    "url": "https://lynskeyperformance.com/cooper-cx-frame-only/",
+    "bb_drop": 65.6,
+    "bb_diameter": 34.8,
+    "chainstay_length": 435,
+    "color_str": "k",
+    "fork_length": 397,
+    "fork_offset": 45,
+    "head_tube_angle": 72.8,
+    "head_tube_length": 171,
+    "seat_tube_angle": 73.3,
+    "seat_tube_length": 575,
+    "wheelbase": 1039.0
+  }
+}

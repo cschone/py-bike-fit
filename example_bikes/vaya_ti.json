@@ -1,0 +1,18 @@
+{
+  "bicycle": {
+    "name": "Salsa Vaya Ti",
+    "size": "59 cm",
+    "url": "http://salsacycles.com/bikes/vaya",
+    "bb_drop": 75,
+    "bb_diameter": 34.8,
+    "chainstay_length": 450,
+    "color_str": "g",
+    "fork_length": 405,
+    "fork_offset": 50,
+    "head_tube_angle": 71.5,
+    "head_tube_length": 205,
+    "seat_tube_angle": 72.5,
+    "seat_tube_length": 560,
+    "wheelbase": 1072.0
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "bicycle": {
+    "name": "Salsa Warbird Carbon",
+    "size": "58 cm",
+    "url": "http://salsacycles.com/bikes/warbird/2016_warbird_carbon_rival_221",
+    "bb_drop": 70,
+    "bb_diameter": 34.8,
+    "chainstay_length": 430,
+    "color_str": "b",
+    "fork_length": 405,
+    "fork_offset": 45,
+    "head_tube_angle": 72,
+    "head_tube_length": 185,
+    "seat_tube_angle": 72.5,
+    "seat_tube_length": 575,
+    "wheelbase": 1034.8
+  }
+}
