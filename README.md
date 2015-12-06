@@ -5,7 +5,7 @@ Bicycle are defined in JSON format according the examples in the 'example-bikes'
 compared by supplying multiple JSON files as shown below.
 
 ### Dependencies
-You must install [matplotlib](http://matplotlib.org/users/installing.htm) to use this script.
+You must install [matplotlib](http://matplotlib.org/users/installing.html) to use this script.
 
 ### Usage
     $ ./pybikefit.py -j example_bikes/cooper.json -j example_bikes/vaya_ti.json -j example_bikes/warbird.json
