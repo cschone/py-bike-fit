@@ -9,3 +9,6 @@ You must install [matplotlib](http://matplotlib.org/users/installing.htm) to use
 
 ### Usage
     $ ./pybikefit.py -j example_bikes/cooper.json -j example_bikes/vaya_ti.json -j example_bikes/warbird.json
+
+### Example Output
+![Alt text](/example_bikes/example_bikes.png?raw=true "Example Bikes")
