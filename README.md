@@ -1,7 +1,7 @@
 # py-bike-fit
 Python script used to visually compare bicycle geometries defined in JSON files and plotted in matplotlib.
 
-Bicycle are defined in JSON format according the examples in the 'example-bikes' directory. Multiple bikes can be
+Bicycle are defined in JSON format according to the examples in the 'example-bikes' directory. Multiple bikes can be
 compared by supplying multiple JSON files as shown below.
 
 ### Dependencies
