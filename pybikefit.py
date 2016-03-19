@@ -348,6 +348,7 @@ def build_bike(json_bike_file):
             )
         except KeyError as e:
             print("KeyError: File does not contain %s" % e)
+            raise KeyError
     except IOError as e:
         print("%s" % e)
 

@@ -13,6 +13,7 @@
     "head_tube_length": 205,
     "seat_tube_angle": 72.5,
     "seat_tube_length": 560,
-    "wheelbase": 1072.0
+    "wheelbase": 1072.0,
+    "wheel_diameter": 700
   }
 }
