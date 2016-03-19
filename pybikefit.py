@@ -84,7 +84,8 @@ class Bicycle(object):
                  head_tube_length=205,
                  seat_tube_angle=72.5,
                  seat_tube_length=560,
-                 wheelbase=1072.6
+                 wheelbase=1072.6,
+                 wheel_diameter=700.0
                  ):
         # public members
         self.color_str = color_str.encode()
@@ -101,12 +102,17 @@ class Bicycle(object):
         self._seat_tube_angle = float(seat_tube_angle)
         self._seat_tube_length = float(seat_tube_length)
         self._wheelbase = float(wheelbase)
+        self._wheel_diameter = float(wheel_diameter)
 
         # Wheels
         x, y = self._rear_hub_coords()
-        self._rear_wheel = self.Wheel([x, y], color_str=self.color_str)
+        self._rear_wheel = self.Wheel([x, y],
+                                      color_str=self.color_str,
+                                      diameter=self._wheel_diameter)
         x, y = self._front_hub_coords()
-        self._front_wheel = self.Wheel([x, y], color_str=self.color_str)
+        self._front_wheel = self.Wheel([x, y],
+                                       color_str=self.color_str,
+                                       diameter=self._wheel_diameter)
 
     def print_specs(self):
         print("Info:")
@@ -133,7 +139,12 @@ class Bicycle(object):
         self._top_and_down_tube_draw()
 
     class Wheel(object):
-        def __init__(self, axel_coord, diameter=700, color_str='b'):
+        """
+        Reference:
+            http://www.bikecalc.com/wheel_size_math
+        """
+
+        def __init__(self, axel_coord, diameter=700.0, color_str='b'):
             self._coord = axel_coord
             self._diameter = diameter
             self._color_str = color_str
@@ -309,7 +320,8 @@ def build_bike(json_bike_file):
                 head_tube_length=data["bicycle"]["head_tube_length"],
                 seat_tube_angle=data["bicycle"]["seat_tube_angle"],
                 seat_tube_length=data["bicycle"]["seat_tube_length"],
-                wheelbase=data["bicycle"]["wheelbase"]
+                wheelbase=data["bicycle"]["wheelbase"],
+                wheel_diameter=data["bicycle"]["wheel_diameter"]
             )
         except KeyError as e:
             print("KeyError: File does not contain %s" % e)
