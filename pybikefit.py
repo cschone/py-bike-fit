@@ -92,8 +92,6 @@ class Bicycle(object):
         self.frame_size = frame_size.encode()
         self.name = name.encode()
         # private members
-        self._bb_drop = float(bb_drop)
-        self._bb_diameter = float(bb_diameter)
         self._chainstay_length = float(chainstay_length)
         self._fork_length = float(fork_length)
         self._fork_offset = float(fork_offset)
@@ -103,6 +101,9 @@ class Bicycle(object):
         self._seat_tube_length = float(seat_tube_length)
         self._wheelbase = float(wheelbase)
         self._wheel_diameter = float(wheel_diameter)
+
+        # BB
+        self._bb = self.BottomBracket(bb_diameter, bb_drop, wheel_diameter)
 
         # Wheels
         x, y = self._rear_hub_coords()
@@ -118,7 +119,7 @@ class Bicycle(object):
         print("Info:")
         print("\tname:\t%s" % self.name)
         print("\tsize:\t%s" % self.frame_size)
-        self._bb_print_specs()
+        self._bb.print_specs()
         self._chainstay_print_specs()
         self._fork_print_specs()
         self._head_tube_print_specs()
@@ -129,7 +130,7 @@ class Bicycle(object):
         self._front_wheel.draw()
         self._rear_wheel.draw()
 
-        self._bb_draw()
+        self._bb.draw(self.color_str)
         self._chainstay_draw()
         self._fork_draw()
         self._head_tube_draw()
@@ -137,6 +138,33 @@ class Bicycle(object):
         self._seat_tube_draw()
 
         self._top_and_down_tube_draw()
+
+    class BottomBracket(object):
+        def __init__(self, diameter, drop, wheel_diameter):
+            self._coord = [0, wheel_diameter / 2 - drop]
+            self._diameter = diameter
+            self._drop = drop
+
+        def get_coord(self):
+            return self._coord
+
+        def get_diameter(self):
+            return self._diameter
+
+        def get_drop(self):
+            return self._drop
+
+        def draw(self, color_str):
+            bb_plot = plt.Circle(self._coord,
+                                 self._diameter / 2,
+                                 fill=False,
+                                 color=color_str)
+            ax.add_artist(bb_plot)
+
+        def print_specs(self):
+            print("Bottom Bracket")
+            print("\tbb diameter:\t%.2f" % self._diameter)
+            print("\tbb drop:\t%.2f" % self._drop)
 
     class Wheel(object):
         """
@@ -162,19 +190,12 @@ class Bicycle(object):
         def print_specs(self):
             print("Wheel\n\t diameter:\t%.2f" % self._diameter)
 
-    def _bb_draw(self):
-        bb_plot = plt.Circle([0, -self._bb_drop], self._bb_diameter / 2, fill=False, color=self.color_str)
-        ax.add_artist(bb_plot)
-
-    def _bb_print_specs(self):
-        print("Bottom Bracket")
-        print("\tbb diameter:\t%.2f" % self._bb_diameter)
-        print("\tbb drop:\t%.2f" % self._bb_drop)
-
     def _chainstay_draw(self):
         rear_hub_x, rear_hub_y = self._rear_hub_coords()
-        ax.plot([0, rear_hub_x],
-                [-self._bb_drop, rear_hub_y], self.color_str)
+        bb_x, bb_y = self._bb.get_coord()
+        ax.plot([bb_x, rear_hub_x],
+                [bb_y, rear_hub_y],
+                self.color_str)
 
     def _chainstay_print_specs(self):
         print("Chainstay")
@@ -182,7 +203,7 @@ class Bicycle(object):
 
     def _front_hub_coords(self):
         rear_x, rear_y = self._rear_hub_coords()
-        return rear_x + self._wheelbase, 0
+        return rear_x + self._wheelbase, rear_y
 
     def _fork_draw(self):
         # draw head tube axis
@@ -204,7 +225,7 @@ class Bicycle(object):
             wheelbase, head tube length and angle. A bit of trig required.
         :return: [start_x, end_x], [start_y, end_y]
         """
-        # find head point head tube axis crosses y = 0
+        # find point head tube axis crosses y = 0
         x_offset = self._fork_offset / math.cos(math.radians(90 - self._head_tube_angle))
 
         # find front hub
@@ -214,7 +235,7 @@ class Bicycle(object):
         # find head tube bottom
         head_tube_bottom_x, head_tube_bottom_y = find_vector_coords(
             head_tube_y_origin,
-            0,
+            self._bb.get_coord()[1],
             self._fork_length,
             self._head_tube_angle)
 
@@ -232,8 +253,9 @@ class Bicycle(object):
         print("\tlength:\t%.2f" % self._head_tube_length)
 
     def _rear_hub_coords(self):
-        x = - math.sqrt(math.pow(self._chainstay_length, 2) - math.pow(self._bb_drop, 2))
-        return x, 0
+        x = - math.sqrt(math.pow(self._chainstay_length, 2) - math.pow(self._bb.get_drop(), 2))
+        y = self._wheel_diameter / 2
+        return x, y
 
     def _seat_stay_coords(self):
         seat_x, seat_y = self._seat_tube_coords()
@@ -245,7 +267,8 @@ class Bicycle(object):
         ax.plot(x, y, self.color_str)
 
     def _seat_tube_coords(self):
-        return find_vector_coords(0, -self._bb_drop, self._seat_tube_length, self._seat_tube_angle)
+        bb_x, bb_y = self._bb.get_coord()
+        return find_vector_coords(bb_x, bb_y, self._seat_tube_length, self._seat_tube_angle)
 
     def _seat_tube_draw(self):
         x, y = self._seat_tube_coords()
@@ -350,7 +373,7 @@ if __name__ == "__main__":
     fig, ax = plt.subplots()
     fig.canvas.set_window_title(__title__)
     ax.set_xlim(-1000, 1200)
-    ax.set_ylim(-500, 1000)
+    ax.set_ylim(-100, 1400)
     ax.grid(True, which='both')
 
     labels = []
