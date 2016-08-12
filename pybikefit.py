@@ -37,12 +37,12 @@ def init_args():
         epilog="cschone 2015\n%s" % __url__)
 
     parser.add_argument("-j", "--json",
-                        help="Path to a valid json file. Use multiple times to compare multiple bikes",
+                        help="Path to a valid json bike file. Use multiple times to compare multiple bikes",
                         action="append")
     return parser.parse_args()
 
 
-def find_vector_coords(x1, y1, length, angle_deg):
+def get_vector_coords(x1, y1, length, angle_deg):
     """ find the end point coordinates of a vector
     :param x1:      start point
     :param y1:      start point
@@ -55,7 +55,7 @@ def find_vector_coords(x1, y1, length, angle_deg):
     return [x1, x2], [y1, y2]
 
 
-def find_distance_between_coords(x1, y1, x2, y2):
+def get_distance_between_coords(x1, y1, x2, y2):
     """ Pythagorean theorem
     :param x1:  start_x
     :param y1:  start_y
@@ -71,6 +71,9 @@ class Bicycle(object):
         to matplotlib.
     """
 
+    STEM_HEIGHT = 50
+    HANDLEBAR_DIAMETER = 31.6
+
     def __init__(self,
                  name="Example",
                  frame_size="Large",
@@ -84,6 +87,8 @@ class Bicycle(object):
                  head_tube_length=205,
                  seat_tube_angle=72.5,
                  seat_tube_length=560,
+                 stem_angle=0,
+                 stem_length=50,
                  wheelbase=1072.6,
                  wheel_diameter=700.0
                  ):
@@ -114,6 +119,9 @@ class Bicycle(object):
         self._front_wheel = self.Wheel([x, y],
                                        color_str=self.color_str,
                                        diameter=self._wheel_diameter)
+        # Stem
+        self._stem_angle = float(stem_angle)
+        self._stem_length = float(stem_length)
 
     def print_specs(self):
         print("Info:")
@@ -124,6 +132,7 @@ class Bicycle(object):
         self._fork_print_specs()
         self._head_tube_print_specs()
         self._seat_tube_print_specs()
+        self._stem_print_specs()
         self._top_and_down_tube_print_specs()
 
     def draw(self):
@@ -136,7 +145,7 @@ class Bicycle(object):
         self._head_tube_draw()
         self._seat_stay_draw()
         self._seat_tube_draw()
-
+        self._stem_draw()
         self._top_and_down_tube_draw()
 
     class BottomBracket(object):
@@ -195,7 +204,7 @@ class Bicycle(object):
         bb_x, bb_y = self._bb.get_coord()
         ax.plot([bb_x, rear_hub_x],
                 [bb_y, rear_hub_y],
-                self.color_str)
+                self.color_str, linewidth=2)
 
     def _chainstay_print_specs(self):
         print("Chainstay")
@@ -218,7 +227,7 @@ class Bicycle(object):
 
     def _head_tube_draw(self):
         x, y = self._head_tube_coords()
-        ax.plot(x, y, self.color_str)
+        ax.plot(x, y, self.color_str, linewidth=2)
 
     def _head_tube_coords(self):
         """ Calculate head tube coordinates based on fork offset, fork lenth,
@@ -233,14 +242,14 @@ class Bicycle(object):
         head_tube_y_origin = rear_hub_x + self._wheelbase - x_offset
 
         # find head tube bottom
-        head_tube_bottom_x, head_tube_bottom_y = find_vector_coords(
+        head_tube_bottom_x, head_tube_bottom_y = get_vector_coords(
             head_tube_y_origin,
             self._bb.get_coord()[1],
             self._fork_length,
             self._head_tube_angle)
 
         # find head tube top
-        return find_vector_coords(
+        return get_vector_coords(
             head_tube_bottom_x[1],
             head_tube_bottom_y[1],
             self._head_tube_length,
@@ -264,20 +273,48 @@ class Bicycle(object):
 
     def _seat_stay_draw(self):
         x, y = self._seat_stay_coords()
-        ax.plot(x, y, self.color_str)
+        ax.plot(x, y, self.color_str, linewidth=2)
 
     def _seat_tube_coords(self):
         bb_x, bb_y = self._bb.get_coord()
-        return find_vector_coords(bb_x, bb_y, self._seat_tube_length, self._seat_tube_angle)
+        return get_vector_coords(bb_x, bb_y, self._seat_tube_length, self._seat_tube_angle)
 
     def _seat_tube_draw(self):
         x, y = self._seat_tube_coords()
-        ax.plot(x, y, self.color_str)
+        ax.plot(x, y, self.color_str, linewidth=2)
 
     def _seat_tube_print_specs(self):
         print("Seat Tube")
         print("\tangle:\t%.2f" % self._seat_tube_angle)
         print("\tlength:\t%.2f" % self._seat_tube_length)
+
+    def _stem_draw(self):
+        # draw steer tube
+        x, y = self._steer_tube_coords()
+        ax.plot(x, y, self.color_str)
+
+        # draw stem
+        x, y = get_vector_coords(x[1], y[1],
+                                 self._stem_length + (self.HANDLEBAR_DIAMETER / 2),
+                                 self._head_tube_angle - self._stem_angle + 90)
+        ax.plot(x, y, self.color_str)
+
+        # draw handlebar mount
+        hb_plot = plt.Circle((x[1], y[1]),
+                             self.HANDLEBAR_DIAMETER / 2,
+                             fill=False,
+                             color=self.color_str)
+        ax.add_artist(hb_plot)
+
+    def _steer_tube_coords(self):
+        x, y = self._head_tube_coords()
+        return get_vector_coords(x[1], y[1],
+                                 self.STEM_HEIGHT,
+                                 self._head_tube_angle)
+
+    def _stem_print_specs(self):
+        print("Stem")
+        print("\tlength:\t%.2f" % self._stem_length)
 
     def _top_and_down_tube_coords(self):
         """ Estimates top and down tube positions based on head and seat tube
@@ -291,14 +328,14 @@ class Bicycle(object):
 
     def _top_and_down_tube_draw(self):
         x, y = self._top_and_down_tube_coords()
-        ax.plot(x, y, self.color_str)
+        ax.plot(x, y, self.color_str, linewidth=2)
 
     def _top_and_down_tube_print_specs(self):
         x, y = self._top_and_down_tube_coords()
         print("Top Tube:")
-        print("\tlength:\t%.2f" % find_distance_between_coords(x[0][1], y[0][1], x[1][1], y[1][1]))
+        print("\tlength:\t%.2f" % get_distance_between_coords(x[0][1], y[0][1], x[1][1], y[1][1]))
         print("Down Tube:")
-        print("\tlength:\t%.2f" % find_distance_between_coords(x[0][0], y[0][0], x[1][0], y[1][0]))
+        print("\tlength:\t%.2f" % get_distance_between_coords(x[0][0], y[0][0], x[1][0], y[1][0]))
 
 
 def get_color(n):
@@ -343,6 +380,8 @@ def build_bike(json_bike_file):
                 head_tube_length=data["bicycle"]["head_tube_length"],
                 seat_tube_angle=data["bicycle"]["seat_tube_angle"],
                 seat_tube_length=data["bicycle"]["seat_tube_length"],
+                stem_angle=data["bicycle"]["stem_angle"],
+                stem_length=data["bicycle"]["stem_length"],
                 wheelbase=data["bicycle"]["wheelbase"],
                 wheel_diameter=data["bicycle"]["wheel_diameter"]
             )
@@ -385,6 +424,6 @@ if __name__ == "__main__":
             labels.append(mpatches.Patch(label=bike.name + " " + bike.frame_size,
                                          color=bike.color_str))
 
-    ax.legend(handles=labels)
+    ax.legend(handles=labels, loc='upper left')
 
     plt.show(block=True)
