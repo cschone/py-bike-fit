@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# Copyright [current year] the Melange authors.
+# Copyright 2018 the pybikefit authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -39,6 +39,11 @@ def init_args():
     parser.add_argument("-j", "--json",
                         help="Path to a valid json bike file. Use multiple times to compare multiple bikes",
                         action="append")
+
+    parser.add_argument("-r", "--rider",
+                        help="Path to a valid json rider file.",
+                        type=str)
+
     return parser.parse_args()
 
 
@@ -66,6 +71,25 @@ def get_distance_between_coords(x1, y1, x2, y2):
     return math.sqrt(math.pow(x2 - x1, 2) + math.pow(y2 - y1, 2))
 
 
+class Rider(object):
+    """ Rider specific dimensions.
+    """
+
+    def __init__(self,
+                 saddle_height=810,
+                 saddle_length=280,
+                 saddle_set_back=22):
+        self.saddle_height = saddle_height
+        self.saddle_length = saddle_length
+        self.saddle_set_back = saddle_set_back
+
+    def print_specs(self):
+        print("Rider:")
+        print("\tsaddle_height:\t%s" % self.saddle_height)
+        print("\tsaddle_length:\t%s" % self.saddle_length)
+        print("\tsaddle_set_back:\t%s" % self.saddle_set_back)
+
+
 class Bicycle(object):
     """ A bicycle defined by dimensional characteristics. Generates output
         to matplotlib.
@@ -90,7 +114,8 @@ class Bicycle(object):
                  stem_angle=0,
                  stem_length=50,
                  wheelbase=1072.6,
-                 wheel_diameter=700.0
+                 wheel_diameter=700.0,
+                 rider=None
                  ):
         # public members
         self.color_str = color_str.encode()
@@ -123,6 +148,16 @@ class Bicycle(object):
         self._stem_angle = float(stem_angle)
         self._stem_length = float(stem_length)
 
+        # Saddle
+        self._saddle = None
+        if rider:
+            self._saddle = self.Saddle(saddle_height=rider.saddle_height,
+                                       saddle_length=rider.saddle_length,
+                                       saddle_set_back=rider.saddle_set_back,
+                                       bb_coords=self._bb.get_coord(),
+                                       seat_tube_angle=self._seat_tube_angle,
+                                       color_str=self.color_str)
+
     def print_specs(self):
         print("Info:")
         print("\tname:\t%s" % self.name)
@@ -138,6 +173,8 @@ class Bicycle(object):
     def draw(self):
         self._front_wheel.draw()
         self._rear_wheel.draw()
+        if self._saddle:
+            self._saddle.draw()
 
         self._bb.draw(self.color_str)
         self._chainstay_draw()
@@ -199,6 +236,42 @@ class Bicycle(object):
         def print_specs(self):
             print("Wheel\n\t diameter:\t%.2f" % self._diameter)
 
+    class Saddle(object):
+
+        def __init__(self,
+                     saddle_height,
+                     saddle_length,
+                     saddle_set_back,
+                     bb_coords,
+                     seat_tube_angle,
+                     color_str='b'):
+            self._saddle_height = saddle_height
+            self._saddle_length = saddle_length
+            self._saddle_set_back = saddle_set_back
+            self._seat_tube_angle = seat_tube_angle
+            self._bb_coords = bb_coords
+            self._color_str = color_str
+
+        def draw(self):
+            # draw seat tube
+            x, y = self._seat_tube_coords()
+            ax.plot(x, y, self._color_str)
+
+            # draw saddle
+            seat_x = [x[1] - self._saddle_length / 2 - self._saddle_set_back,
+                      x[1] + self._saddle_length / 2 - self._saddle_set_back]
+            seat_y = [y[1], y[1]]
+            ax.plot(seat_x, seat_y, self._color_str)
+
+        def print_specs(self):
+            print("Saddle")
+            print("\tsaddle height:\t%.2f" % self._saddle_height)
+            print("\tsaddle length:\t%.2f" % self._saddle_length)
+
+        def _seat_tube_coords(self):
+            return get_vector_coords(self._bb_coords[0], self._bb_coords[1],
+                                     self._saddle_height, self._seat_tube_angle)
+
     def _chainstay_draw(self):
         rear_hub_x, rear_hub_y = self._rear_hub_coords()
         bb_x, bb_y = self._bb.get_coord()
@@ -239,12 +312,12 @@ class Bicycle(object):
 
         # find front hub
         rear_hub_x, rear_hub_y = self._rear_hub_coords()
-        head_tube_y_origin = rear_hub_x + self._wheelbase - x_offset
+        head_tube_x_origin = rear_hub_x + self._wheelbase - x_offset
 
         # find head tube bottom
         head_tube_bottom_x, head_tube_bottom_y = get_vector_coords(
-            head_tube_y_origin,
-            self._bb.get_coord()[1],
+            head_tube_x_origin,
+            rear_hub_y,
             self._fork_length,
             self._head_tube_angle)
 
@@ -357,9 +430,36 @@ def get_color(n):
     return colors[n]
 
 
-def build_bike(json_bike_file):
+def get_rider(json_rider_file):
+    """ Open JSON file and build Rider object
+    :param json_rider_file:  JSON file path
+    :return: Rider object
+    """
+    try:
+        with open(json_rider_file) as rider_file:
+            data = json.load(rider_file)
+
+            try:
+                return Rider(
+                    saddle_height=data["rider"]["saddle_height"],
+                    saddle_length=data["rider"]["saddle_length"],
+                    saddle_set_back=data["rider"]["saddle_set_back"]
+                )
+            except KeyError as e:
+                print("Error reading Rider JSON")
+                print("KeyError: File does not contain %s" % e)
+                raise KeyError
+    except IOError as e:
+        print("Error reading Rider JSON")
+        print("%s" % e)
+        raise e
+    return Rider()
+
+
+def build_bike(json_bike_file, rider=None):
     """ Open JSON file and build Bicycle object
     :param json_bike_file:  JSON file path
+    :param rider: a Rider object
     :return: Bicycle object
     """
     try:
@@ -383,7 +483,8 @@ def build_bike(json_bike_file):
                 stem_angle=data["bicycle"]["stem_angle"],
                 stem_length=data["bicycle"]["stem_length"],
                 wheelbase=data["bicycle"]["wheelbase"],
-                wheel_diameter=data["bicycle"]["wheel_diameter"]
+                wheel_diameter=data["bicycle"]["wheel_diameter"],
+                rider=rider
             )
         except KeyError as e:
             print("KeyError: File does not contain %s" % e)
@@ -400,11 +501,16 @@ if __name__ == "__main__":
 
     args = init_args()
 
+    rider = None
+    if args.rider:
+        rider = get_rider(args.rider)
+        rider.print_specs()
+
     bikes = []
     if args.json:
         # read JSON files
         for b in args.json:
-            bikes.append(build_bike(b))
+            bikes.append(build_bike(b, rider))
     else:
         # Make an example bike
         bikes.append(Bicycle())
