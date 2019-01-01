@@ -1,0 +1,19 @@
+{
+  "bicycle": {
+    "name": "Yeti ASRc",
+    "size": "Large",
+    "url": "http://www.yeticycles.com/bikes/asrc",
+    "bb_drop": 40,
+    "bb_diameter": 73,
+    "chainstay_length": 445,
+    "color_str": "b",
+    "fork_length": 521,
+    "fork_offset": 44,
+    "head_tube_angle": 69,
+    "head_tube_length": 111,
+    "seat_tube_angle": 72.8,
+    "seat_tube_length": 483,
+    "wheelbase": 1156,
+    "wheel_diameter": 742
+  }
+}

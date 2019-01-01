@@ -1,0 +1,22 @@
+{
+  "bicycle": {
+    "name": "Transition Smuggler Carbon",
+    "size": "Large",
+    "url": "https://www.transitionbikes.com/Bikes_2019_SmugglerCarbonFrameset.cfm",
+    "bb_drop": 35,
+    "bb_diameter": 35,
+    "chainstay_length": 430,
+    "color_str": "orange",
+    "fork_length": 551,
+    "fork_offset": 42,
+    "head_tube_angle": 66.0,
+    "head_tube_length": 110,
+    "seat_tube_angle": 75.8,
+    "seat_tube_length": 450,
+    "stem_angle": 0,
+    "stem_height": 20,
+    "stem_length": 40,
+    "wheelbase": 1213,
+    "wheel_diameter": 742
+  }
+}

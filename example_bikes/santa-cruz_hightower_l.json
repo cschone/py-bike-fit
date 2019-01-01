@@ -1,0 +1,22 @@
+{
+  "bicycle": {
+    "name": "Santa Cruze",
+    "size": "Large",
+    "url": "https://www.santacruzbicycles.com/en-US/hightower",
+    "bb_drop": 33,
+    "bb_diameter": 73,
+    "chainstay_length": 435,
+    "color_str": "red",
+    "fork_length": 528,
+    "fork_offset": 51,
+    "head_tube_angle": 67,
+    "head_tube_length": 100,
+    "seat_tube_angle": 74.3,
+    "seat_tube_length": 450,
+    "stem_angle": 0,
+    "stem_height": 20,
+    "stem_length": 50,
+    "wheelbase": 1187,
+    "wheel_diameter": 742
+  }
+}

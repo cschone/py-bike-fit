@@ -1,6 +1,6 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 
-# Copyright 2018 the pybikefit authors.
+# Copyright 2018 the py-bike-fit authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,8 +15,8 @@
 # limitations under the License.
 
 import argparse
-import math
 import json
+import math
 
 import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
@@ -118,9 +118,9 @@ class Bicycle(object):
                  rider=None
                  ):
         # public members
-        self.color_str = color_str.encode()
-        self.frame_size = frame_size.encode()
-        self.name = name.encode()
+        self.color_str = str(color_str)
+        self.frame_size = str(frame_size)
+        self.name = str(name)
         # private members
         self._chainstay_length = float(chainstay_length)
         self._fork_length = float(fork_length)
@@ -288,10 +288,11 @@ class Bicycle(object):
         return rear_x + self._wheelbase, rear_y
 
     def _fork_draw(self):
-        # draw head tube axis
+        # draw fork axis
         head_tube_x, head_tube_y = self._head_tube_coords()
-        front_hub_x, front_hub_y = self._front_hub_coords()
-        ax.plot([front_hub_x, head_tube_x[0]], [front_hub_y, head_tube_y[0]], self.color_str)
+        fork_x, fork_y = get_vector_coords(head_tube_x[0], head_tube_y[0],
+                                           self._fork_length, -180 + self._head_tube_angle)
+        ax.plot(fork_x, fork_y, self.color_str)
 
     def _fork_print_specs(self):
         print("Fork")
@@ -303,7 +304,7 @@ class Bicycle(object):
         ax.plot(x, y, self.color_str, linewidth=2)
 
     def _head_tube_coords(self):
-        """ Calculate head tube coordinates based on fork offset, fork lenth,
+        """ Calculate head tube coordinates based on fork offset, fork length,
             wheelbase, head tube length and angle. A bit of trig required.
         :return: [start_x, end_x], [start_y, end_y]
         """
