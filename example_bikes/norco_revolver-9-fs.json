@@ -1,0 +1,19 @@
+{
+  "bicycle": {
+    "name": "Norco Revolver 9 FS",
+    "size": "Large",
+    "url": "https://www.norco.com/bikes/mountain/race-xc/revolver-9-fs/revolver-9-framekit/",
+    "bb_drop": 38,
+    "bb_diameter": 41,
+    "chainstay_length": 442,
+    "color_str": "r",
+    "fork_length": 506,
+    "fork_offset": 51,
+    "head_tube_angle": 70.75,
+    "head_tube_length": 100,
+    "seat_tube_angle": 74.25,
+    "seat_tube_length": 485,
+    "wheelbase": 1149,
+    "wheel_diameter": 742
+  }
+}

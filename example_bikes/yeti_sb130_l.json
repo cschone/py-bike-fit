@@ -1,0 +1,22 @@
+{
+  "bicycle": {
+    "name": "Yeti SB130",
+    "size": "Large",
+    "url": "https://www.yeticycles.com/bikes/sb130/?guide:spec-geo",
+    "bb_drop": 33.3,
+    "bb_diameter": 92,
+    "chainstay_length": 433,
+    "color_str": "cadetblue",
+    "fork_length": 557.1,
+    "fork_offset": 44,
+    "head_tube_angle": 65.5,
+    "head_tube_length": 110.2,
+    "seat_tube_angle": 76.9,
+    "seat_tube_length": 450,
+    "stem_angle": 0,
+    "stem_height": 20,
+    "stem_length": 40,
+    "wheelbase": 1230.2,
+    "wheel_diameter": 742
+  }
+}

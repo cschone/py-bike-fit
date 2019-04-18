@@ -1,0 +1,22 @@
+{
+  "bicycle": {
+    "name": "S-Works Stumpjumper 29",
+    "size": "Large",
+    "url": "https://www.specialized.com/us/en/s-works-stumpjumper-29/p/154551",
+    "bb_drop": 33,
+    "bb_diameter": 24,
+    "chainstay_length": 437,
+    "color_str": "green",
+    "fork_length": 560,
+    "fork_offset": 51,
+    "head_tube_angle": 66.5,
+    "head_tube_length": 125,
+    "seat_tube_angle": 74.1,
+    "seat_tube_length": 455,
+    "stem_angle": 0,
+    "stem_height": 20,
+    "stem_length": 50,
+    "wheelbase": 1201,
+    "wheel_diameter": 742
+  }
+}

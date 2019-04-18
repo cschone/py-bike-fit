@@ -1,0 +1,22 @@
+{
+  "bicycle": {
+    "name": "Norco Optic 9C",
+    "size": "Large",
+    "url": "https://www.norco.com/bikes/mountain/trail/optic-carbon-9/optic-9-framekit/",
+    "bb_drop": 39,
+    "bb_diameter": 41,
+    "chainstay_length": 435,
+    "color_str": "grey",
+    "fork_length": 528,
+    "fork_offset": 51,
+    "head_tube_angle": 68.5,
+    "head_tube_length": 100,
+    "seat_tube_angle": 74.5,
+    "seat_tube_length": 485,
+    "stem_angle": 0,
+    "stem_height": 20,
+    "stem_length": 50,
+    "wheelbase": 1175,
+    "wheel_diameter": 742
+  }
+}
