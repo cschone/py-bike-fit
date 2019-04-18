@@ -1,0 +1,20 @@
+{
+  "bicycle": {
+    "name": "2008 Redline R750",
+    "size": "L (56)",
+    "url": "https://issuu.com/redlinebicycles/docs/2008_rl_cat-low",
+    "bb_drop": 30,
+    "bb_diameter": 34.8,
+    "chainstay_length": 415,
+    "color_str": "g",
+    "fork_length": 385,
+    "fork_offset": 45,
+    "head_tube_angle": 73.5,
+    "head_tube_length":200,
+    "seat_tube_angle": 73,
+    "seat_tube_length": 555,
+    "wheelbase": 1015.0,
+    "wheel_diameter": 700
+  }
+}
+ 

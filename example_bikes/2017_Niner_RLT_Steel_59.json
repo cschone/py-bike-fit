@@ -1,0 +1,20 @@
+{
+  "bicycle": {
+    "name": "2017 Niner RLT Steel",
+    "size": "59",
+    "url": "http://www.ninerbikes.com/RLT-9-STEEL-Frameset-Blue",
+    "bb_drop": 70,
+    "bb_diameter": 34.8,
+    "chainstay_length": 430,
+    "color_str": "b",
+    "fork_length": 400,
+    "fork_offset": 45,
+    "head_tube_angle": 72,
+    "head_tube_length":185,
+    "seat_tube_angle": 73,
+    "seat_tube_length": 590,
+    "wheelbase": 1053.0,
+    "wheel_diameter": 700
+  }
+}
+ 
