@@ -1,0 +1,22 @@
+{
+  "bicycle": {
+    "name": "Norco Torrent HT",
+    "size": "Large",
+    "url": "https://www.norco.com/bikes/2020/mountain/all-mountain/torrent-ht-steel/torrent-ht-s1/",
+    "bb_drop": 45.0,
+    "bb_diameter": 68,
+    "chainstay_length": 425,
+    "color_str": "black",
+    "fork_length": 562,
+    "fork_offset": 42,
+    "head_tube_angle": 64.0,
+    "head_tube_length": 115,
+    "seat_tube_angle": 76,
+    "seat_tube_length": 435,
+    "stem_angle": 0,
+    "stem_height": 20,
+    "stem_length": 50,
+    "wheelbase": 1243,
+    "wheel_diameter": 742
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "bicycle": {
+    "name": "Chromag Rootdown",
+    "size": "Large",
+    "url": "https://chromagbikes.com/collections/bikes/products/frames-rootdown-20",
+    "bb_drop": 50.8,
+    "bb_diameter": 68,
+    "chainstay_length": 420,
+    "color_str": "yellow",
+    "fork_length": 557.1,
+    "fork_offset": 44,
+    "head_tube_angle": 64,
+    "head_tube_length": 115,
+    "seat_tube_angle": 76,
+    "seat_tube_length": 456,
+    "stem_angle": 0,
+    "stem_height": 20,
+    "stem_length": 45,
+    "wheelbase": 1251,
+    "wheel_diameter": 742
+  }
+}

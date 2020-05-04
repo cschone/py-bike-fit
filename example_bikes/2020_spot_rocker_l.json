@@ -1,0 +1,22 @@
+{
+  "bicycle": {
+    "name": "Spot Rocker",
+    "size": "Large",
+    "url": "https://spotbrand.com/collections/mountain-bikes/products/rocker-frame",
+    "bb_drop": 52,
+    "bb_diameter": 68,
+    "chainstay_length": 436,
+    "color_str": "blue",
+    "fork_length": 528,
+    "fork_offset": 51,
+    "head_tube_angle": 67.7,
+    "head_tube_length": 120,
+    "seat_tube_angle": 73.7,
+    "seat_tube_length": 483,
+    "stem_angle": 0,
+    "stem_height": 20,
+    "stem_length": 40,
+    "wheelbase": 1160,
+    "wheel_diameter": 742
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "bicycle": {
+    "name": "Nukeproof 290",
+    "size": "Large",
+    "url": "http://nukeproof.com/products/scout-290-comp-2020/",
+    "bb_drop": 70.0,
+    "bb_diameter": 68,
+    "chainstay_length": 440,
+    "color_str": "cadetblue",
+    "fork_length": 557.1,
+    "fork_offset": 44,
+    "head_tube_angle": 65,
+    "head_tube_length": 110,
+    "seat_tube_angle": 73,
+    "seat_tube_length": 460,
+    "stem_angle": 0,
+    "stem_height": 20,
+    "stem_length": 45,
+    "wheelbase": 1201.6,
+    "wheel_diameter": 742
+  }
+}

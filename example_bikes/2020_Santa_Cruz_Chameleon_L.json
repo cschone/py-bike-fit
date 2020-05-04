@@ -1,0 +1,22 @@
+{
+  "bicycle": {
+    "name": "Santa Cruz Chameleon Aluminum",
+    "size": "Large",
+    "url": "https://www.santacruzbicycles.com/en-US/chameleon",
+    "bb_drop": 55.0,
+    "bb_diameter": 68,
+    "chainstay_length": 430,
+    "color_str": "gold",
+    "fork_length": 540,
+    "fork_offset": 42,
+    "head_tube_angle": 67.3,
+    "head_tube_length": 110,
+    "seat_tube_angle": 72.8,
+    "seat_tube_length": 450,
+    "stem_angle": 0,
+    "stem_height": 20,
+    "stem_length": 50,
+    "wheelbase": 1160,
+    "wheel_diameter": 742
+  }
+}

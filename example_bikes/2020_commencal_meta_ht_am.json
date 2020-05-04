@@ -1,0 +1,22 @@
+{
+  "bicycle": {
+    "name": "Commencal Meta HT AM",
+    "size": "Large",
+    "url": "https://www.commencalusa.com/frame-meta-ht-am-grey-c2x29149329",
+    "bb_drop": 40.0,
+    "bb_diameter": 68,
+    "chainstay_length": 432,
+    "color_str": "orange",
+    "fork_length": 555,
+    "fork_offset": 44,
+    "head_tube_angle": 65,
+    "head_tube_length": 125,
+    "seat_tube_angle": 74,
+    "seat_tube_length": 490,
+    "stem_angle": 0,
+    "stem_height": 20,
+    "stem_length": 40,
+    "wheelbase": 1205,
+    "wheel_diameter": 742
+  }
+}

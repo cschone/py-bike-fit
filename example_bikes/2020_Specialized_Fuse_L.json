@@ -1,0 +1,22 @@
+{
+  "bicycle": {
+    "name": "Specialized Fuse",
+    "size": "Large",
+    "url": "https://www.specialized.com/us/en/fuse-m4-frameset/p/171186",
+    "bb_drop": 60.0,
+    "bb_diameter": 68,
+    "chainstay_length": 420,
+    "color_str": "forestgreen",
+    "fork_length": 540,
+    "fork_offset": 44,
+    "head_tube_angle": 66.5,
+    "head_tube_length": 110,
+    "seat_tube_angle": 74,
+    "seat_tube_length": 455,
+    "stem_angle": 6,
+    "stem_height": 20,
+    "stem_length": 45,
+    "wheelbase": 1188,
+    "wheel_diameter": 742
+  }
+}
