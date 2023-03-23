@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 
 # Copyright 2018 the py-bike-fit authors.
 #
@@ -518,7 +518,7 @@ if __name__ == "__main__":
 
     # build plot
     fig, ax = plt.subplots()
-    fig.canvas.set_window_title(__title__)
+    fig.canvas.manager.set_window_title(__title__)
     ax.set_xlim(-1000, 1200)
     ax.set_ylim(-100, 1400)
     ax.grid(True, which='both')

@@ -1,0 +1,22 @@
+{
+  "bicycle": {
+    "name": "Santa Cruz Blue TR",
+    "size": "XL",
+    "url": "https://www.santacruzbicycles.com/en-US/bikes/blur?color=Matte%20Silver#geometry-and-sizing",
+    "bb_drop": 33.1,
+    "bb_diameter": 73,
+    "chainstay_length": 438.3,
+    "color_str": "blue",
+    "fork_length": 531,
+    "fork_offset": 44,
+    "head_tube_angle": 67.1,
+    "head_tube_length": 125,
+    "seat_tube_angle": 74.8,
+    "seat_tube_length": 520,
+    "stem_angle": 0,
+    "stem_height": 20,
+    "stem_length": 60,
+    "wheelbase": 1216.3,
+    "wheel_diameter": 742
+  }
+}
